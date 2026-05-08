@@ -1,850 +1,719 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ElevateX</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              brand: {
-                blue: "#2563EB",
-                red: "#E63946",
-                light: "#F8F9FA",
-                orange: "#F97316",
-                dark: "#0F172A",
-              },
-            },
-          },
-        },
-      };
-    </script>
-    <style>
-      /* Ensure smooth scrolling */
-      html {
-        scroll-behavior: smooth;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ElevateX Marketing</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "ElevateX Marketing",
+    "description": "Marketing and automation system for Roofing, Plumbing, and HVAC businesses.",
+    "priceRange": "$$",
+    "address": { "@type": "PostalAddress", "addressCountry": "US" },
+    "offer": {
+      "@type": "Offer",
+      "name": "Trades Growth System",
+      "price": "297.00",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/OnlineOnly"
+    }
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #2563EB;
+      --red: #E63946;
+      --orange: #F97316;
+      --dark: #0F172A;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50:  #f8fafc;
+      --white: #ffffff;
+      --green-400: #4ade80;
+      --green-500: #22c55e;
+      --green-600: #16a34a;
+      --yellow-400: #facc15;
+    }
+
+    html { scroll-behavior: smooth; font-family: system-ui, -apple-system, sans-serif; }
+    body { color: var(--slate-900); background: var(--white); -webkit-font-smoothing: antialiased; }
+
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    .container { width: 100%; max-width: 1152px; margin: 0 auto; padding: 0 1rem; }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      font-weight: 600; border-radius: 0.5rem; cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      border: none; font-size: 1.125rem; padding: 1rem 2rem; width: 100%;
+    }
+    .btn-orange { background: var(--orange); color: #fff; box-shadow: 0 4px 20px rgba(249,115,22,.3); }
+    .btn-orange:hover { background: #ea6c00; }
+    .btn-outline {
+      background: transparent; border: 2px solid var(--slate-200);
+      color: var(--slate-600);
+    }
+    .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+
+    @media(min-width:640px) { .btn { width: auto; } }
+
+    /* ════════════════════════════════════
+       HERO
+    ════════════════════════════════════ */
+    .hero {
+      position: relative; padding: 5rem 1rem 4rem; overflow: hidden;
+      text-align: center;
+    }
+    @media(min-width:768px) { .hero { padding: 8rem 1rem 6rem; } }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: #eff6ff; border: 1px solid #dbeafe;
+      border-radius: 9999px; padding: .375rem 1rem; margin-bottom: 2rem;
+    }
+    .hero-badge-dot { width: .5rem; height: .5rem; border-radius: 50%; background: var(--blue); }
+    .hero-badge span { font-size: .875rem; font-weight: 600; color: var(--blue); letter-spacing: .05em; text-transform: uppercase; }
+
+    .hero h1 {
+      font-size: clamp(2.25rem, 6vw, 4.5rem);
+      font-weight: 900; color: var(--dark);
+      letter-spacing: -.02em; line-height: 1.1; margin-bottom: 1.5rem;
+    }
+    .hero h1 .blue { color: var(--blue); }
+
+    .hero-sub { font-size: 1.125rem; color: var(--slate-600); margin-bottom: .5rem; max-width: 40rem; margin-left: auto; margin-right: auto; line-height: 1.6; }
+    .hero-sub2 { font-size: 1rem; color: var(--slate-500); font-weight: 500; margin-bottom: 2.5rem; max-width: 40rem; margin-left: auto; margin-right: auto; }
+
+    .hero-note { font-size: .875rem; font-weight: 600; color: var(--orange); margin-bottom: 2.5rem; }
+
+    .hero-btns { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+    @media(min-width:640px) { .hero-btns { flex-direction: row; justify-content: center; } }
+
+    .hero-check {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .875rem; color: var(--slate-500); margin-bottom: 4rem;
+    }
+    .hero-check svg { color: var(--slate-400); flex-shrink: 0; }
+
+    /* Built-for card */
+    .built-for {
+      max-width: 48rem; margin: 0 auto;
+      background: rgba(255,255,255,.8); backdrop-filter: blur(6px);
+      border: 1px solid var(--slate-200); border-radius: .75rem;
+      padding: 1.5rem; box-shadow: 0 2px 12px rgba(0,0,0,.04);
+      text-align: left;
+    }
+    .built-for h3 { font-weight: 700; margin-bottom: .5rem; }
+    .built-for .sub { font-size: .875rem; color: var(--slate-500); margin-bottom: 1.5rem; }
+    .built-for-item { display: flex; gap: .75rem; align-items: flex-start; margin-bottom: 1rem; }
+    .built-for-item svg { color: var(--blue); flex-shrink: 0; margin-top: .125rem; }
+
+    /* Hero glow */
+    .hero-glow {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 80rem; height: 100%; z-index: -1;
+      pointer-events: none; opacity: .3;
+    }
+    .glow-blue { position: absolute; top: 5rem; left: 2.5rem; width: 18rem; height: 18rem; background: #93c5fd; border-radius: 50%; filter: blur(100px); }
+    .glow-orange { position: absolute; bottom: 5rem; right: 2.5rem; width: 18rem; height: 18rem; background: #fed7aa; border-radius: 50%; filter: blur(100px); }
+
+    /* ════════════════════════════════════
+       CASE STUDY
+    ════════════════════════════════════ */
+    .case-study { padding: 3rem 1rem; background: var(--white); }
+    .cs-inner {
+      background: var(--dark); color: var(--white);
+      border-radius: 1.5rem; padding: 1.5rem;
+      box-shadow: 0 25px 50px rgba(0,0,0,.25); overflow: hidden; position: relative;
+    }
+    @media(min-width:768px) { .cs-inner { padding: 2.5rem; } }
+
+    .cs-grid { display: grid; gap: 2rem; align-items: center; }
+    @media(min-width:768px) { .cs-grid { grid-template-columns: 1fr 1fr; } }
+
+    .cs-badge {
+      display: inline-block; padding: .25rem .75rem;
+      background: rgba(34,197,94,.2); color: #4ade80;
+      font-size: .75rem; font-weight: 700; border-radius: 9999px;
+      border: 1px solid rgba(34,197,94,.3); margin-bottom: 1rem;
+    }
+    .cs-inner h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
+    @media(min-width:768px) { .cs-inner h3 { font-size: 1.875rem; } }
+    .cs-inner p { color: var(--slate-300); margin-bottom: 1.5rem; line-height: 1.7; }
+    .cs-inner .fine { font-size: .75rem; color: var(--slate-400); }
+
+    .cs-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .cs-stat { border-left: 2px solid var(--orange); padding-left: 1rem; }
+    .cs-stat .num { font-size: 1.875rem; font-weight: 900; color: var(--orange); }
+    .cs-stat .lbl { font-size: .875rem; color: var(--slate-400); }
+
+    .cs-panel {
+      display: none; background: var(--slate-800); padding: 2rem;
+      border-radius: .75rem; border: 1px solid var(--slate-700); box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    }
+    @media(min-width:768px) { .cs-panel { display: flex; flex-direction: column; gap: 1.5rem; } }
+    .cs-panel .big { font-size: 2.25rem; font-weight: 900; color: var(--green-400); }
+    .cs-panel .lbl { color: var(--white); font-weight: 500; }
+    .cs-panel hr { border: none; border-top: 1px solid var(--slate-700); }
+
+    /* ════════════════════════════════════
+       TESTIMONIALS
+    ════════════════════════════════════ */
+    .testimonials { padding: 4rem 1rem; background: var(--white); border-top: 1px solid var(--slate-100); border-bottom: 1px solid var(--slate-100); }
+    .testimonials .section-label { text-align: center; color: var(--slate-600); font-weight: 500; margin-bottom: 2rem; }
+    .testi-grid { display: grid; gap: 2rem; }
+    @media(min-width:768px) { .testi-grid { grid-template-columns: repeat(3,1fr); } }
+
+    .testi-card {
+      background: var(--slate-50); padding: 1.5rem;
+      border-radius: 1rem; border: 1px solid var(--slate-100);
+      box-shadow: 0 1px 3px rgba(0,0,0,.05);
+      transition: box-shadow .2s;
+    }
+    .testi-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.08); }
+
+    .stars { display: flex; gap: .25rem; margin-bottom: 1rem; }
+    .stars svg { fill: var(--yellow-400); }
+
+    .testi-card blockquote { color: var(--slate-700); line-height: 1.6; margin-bottom: 1.5rem; }
+    .testi-author { display: flex; align-items: center; gap: .75rem; }
+    .testi-author img { width: 2.5rem; height: 2.5rem; border-radius: 50%; object-fit: cover; transition: transform .3s; cursor: pointer; }
+    .testi-author img:hover { transform: scale(1.1); }
+    .testi-name { font-weight: 700; font-size: .875rem; }
+    .testi-role { font-size: .75rem; color: var(--slate-500); }
+
+    /* ════════════════════════════════════
+       PROBLEM
+    ════════════════════════════════════ */
+    .problem { padding: 5rem 1rem 0; background: var(--slate-50); }
+    .problem h2 { text-align: center; font-size: clamp(1.75rem,4vw,2.25rem); font-weight: 700; margin-bottom: 1rem; }
+    .problem .problem-sub { text-align: center; font-size: 1.125rem; color: var(--slate-600); max-width: 48rem; margin: 0 auto 3rem; }
+
+    .problem-box {
+      max-width: 56rem; margin: 0 auto;
+      background: var(--white); border-radius: 1rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,.08); border: 1px solid var(--slate-100);
+      padding: 2rem 2rem 2.5rem; margin-bottom: 3rem;
+    }
+    .problem-items { display: grid; gap: 1.5rem; }
+    @media(min-width:768px) { .problem-items { grid-template-columns: 1fr 1fr; } }
+    .problem-item { display: flex; gap: .75rem; align-items: flex-start; }
+    .problem-item svg { flex-shrink: 0; margin-top: .25rem; color: #ef4444; }
+    .problem-item p { font-weight: 500; color: var(--slate-700); }
+
+    .problem-cta {
+      margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--slate-100); text-align: center;
+    }
+    .problem-cta-box {
+      display: inline-block; background: rgba(37,99,235,.1); border-radius: .75rem;
+      padding: 1.5rem; text-align: left;
+    }
+    .problem-cta-box .headline { color: var(--blue); font-weight: 700; font-size: 1.25rem; margin-bottom: .5rem; }
+    .problem-cta-box p { color: var(--slate-700); font-weight: 500; }
+
+    /* ════════════════════════════════════
+       HOW IT WORKS
+    ════════════════════════════════════ */
+    .how { padding: 4rem 1rem 5rem; background: var(--slate-900); color: var(--white); }
+    .how h2 { text-align: center; font-size: clamp(1.75rem,4vw,2.25rem); font-weight: 700; margin-bottom: 1rem; }
+    .how .how-sub { text-align: center; color: var(--slate-400); max-width: 40rem; margin: 0 auto 4rem; }
+
+    .steps { display: grid; gap: 2rem; position: relative; }
+    @media(min-width:768px) {
+      .steps { grid-template-columns: repeat(3,1fr); }
+      .steps::before {
+        content: ''; position: absolute; top: 50%; left: 0;
+        width: 100%; height: 1px; background: var(--slate-800);
+        transform: translateY(-50%); z-index: 0;
       }
-    </style>
-  </head>
-  <body class="font-sans antialiased text-slate-900">
-    <div id="root">
-      <main class="min-h-screen flex flex-col font-sans">
-        <script type="application/ld+json">
-          {
-            "@context": "https://schema.org",
-            "@type": "ProfessionalService",
-            "name": "ElevateX Marketing",
-            "description": "Marketing and automation system for Roofing, Plumbing, and HVAC businesses.",
-            "priceRange": "$$",
-            "address": { "@type": "PostalAddress", "addressCountry": "US" },
-            "offer": {
-              "@type": "Offer",
-              "name": "Trades Growth System",
-              "price": "297.00",
-              "priceCurrency": "USD",
-              "availability": "https://schema.org/OnlineOnly"
-            }
-          }
-        </script>
-        <section class="relative pt-20 pb-16 md:pt-32 md:pb-24 overflow-hidden">
-          <div class="container mx-auto px-4 text-center max-w-5xl relative z-10">
-            <div
-              class="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-full px-4 py-1.5 mb-8 animate-fade-in-up"
-            >
-              <span class="flex h-2 w-2 rounded-full bg-brand-blue"></span
-              ><span class="text-sm font-medium text-brand-blue tracking-wide uppercase"
-                >For Plumbers &amp; HVAC</span
-              >
-            </div>
-            <h1
-              class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-brand-dark tracking-tight mb-6 leading-tight"
-            >
-              Stop losing calls to the <br class="hidden md:block" /><span class="text-brand-blue"
-                >next plumber.</span
-              >
-            </h1>
-            <p class="text-lg md:text-xl text-slate-600 mb-2 max-w-2xl mx-auto leading-relaxed">
-              Your phone rings. You're on a job. You miss it. They call the next plumber.
-            </p>
-            <p class="text-base md:text-lg text-slate-500 font-medium mb-10 max-w-2xl mx-auto">
-              We text them back instantly so they don't call someone else.
-            </p>
-            <div class="mb-10">
-              <p class="text-sm font-semibold text-brand-orange mb-1">
-                This isn't marketing. It just catches the calls you're already getting.
-              </p>
-            </div>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-              <button
-                onclick="document.getElementById('lead-form').scrollIntoView({behavior: 'smooth'})"
-                class="inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-brand-orange hover:bg-orange-600 text-white shadow-lg shadow-orange-500/30 focus:ring-orange-500 px-8 py-4 text-lg w-full sm:w-auto"
-              >
-                See How Many Calls You're Missing</button
-              ><button
-                onclick="document.getElementById('lead-form').scrollIntoView({behavior: 'smooth'})"
-                class="inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-transparent border-2 border-slate-200 hover:border-brand-blue hover:text-brand-blue text-slate-600 px-8 py-4 text-lg w-full sm:w-auto"
-              >
-                Start my 5-day proof
-              </button>
-            </div>
-            <div class="flex flex-col items-center gap-2 mb-16">
-              <div class="inline-flex items-center gap-2 text-sm text-slate-500">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-4 w-4 text-slate-400 shrink-0"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" ></path>
-                </svg>
-                <span>See the missed calls for yourself. Decide if it's worth it.</span>
-              </div>
-            </div>
-            <div
-              class="max-w-3xl mx-auto bg-white/80 backdrop-blur-sm border border-slate-200 rounded-xl p-6 shadow-[0px_2px_12px_rgba(0,0,0,0.04)]"
-            >
-              <h3 class="text-slate-900 font-bold mb-2">This Is Built For You If…</h3>
-              <p class="text-sm text-slate-500 mb-6">
-                Built for owner-operators and small crews who answer their own phone.
-              </p>
-              <div class="space-y-4">
-                <div class="flex gap-3 items-start">
-                  <div class="text-brand-blue shrink-0 mt-0.5">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                      ></path>
-                    </svg>
-                  </div>
-                  <span class="text-left">You miss calls while working.</span>
-                </div>
-                <div class="flex gap-3 items-start">
-                  <div class="text-brand-blue shrink-0 mt-0.5">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"
-                      ></path>
-                    </svg>
-                  </div>
-                  <span class="text-left"
-                    >You see missed calls later when you’re already on a job.</span
-                  >
-                </div>
-                <div class="flex gap-3 items-start">
-                  <div class="text-brand-blue shrink-0 mt-0.5">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M12 12c0-3 2.5-5.5 5.5-5.5S23 9 23 12H12zm0 0c3 0 5.5 2.5 5.5 5.5S15 23 12 23V12zm0 0c0 3-2.5 5.5-5.5 5.5S1 15 1 12h11zm0 0c-3 0-5.5-2.5-5.5-5.5S9 1 12 1v11z"
-                      ></path>
-                    </svg>
-                  </div>
-                  <span class="text-left">You want to book jobs without playing phone tag.</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl -z-10 opacity-30 pointer-events-none"
-          >
-            <div
-              class="absolute top-20 left-10 w-72 h-72 bg-blue-300 rounded-full blur-[100px]"
-            ></div>
-            <div
-              class="absolute bottom-20 right-10 w-72 h-72 bg-orange-200 rounded-full blur-[100px]"
-            ></div>
-          </div>
-        </section>
-        <!--$-->
-        <section class="py-12 bg-white">
-          <div class="container mx-auto px-4 max-w-6xl">
-            <div
-              class="bg-brand-dark text-white rounded-3xl p-6 md:p-10 shadow-2xl overflow-hidden relative"
-            >
-              <div class="relative z-10 grid md:grid-cols-2 gap-8 items-center">
-                <div>
-                  <div
-                    class="inline-block px-3 py-1 bg-green-500/20 text-green-400 text-xs font-bold rounded-full mb-4 border border-green-500/30"
-                  >
-                    CASE STUDY
-                  </div>
-                  <h3 class="text-2xl md:text-3xl font-bold mb-4">
-                    How a local Dallas plumber added 18 booked jobs in 30 days.
-                  </h3>
-                  <p class="text-slate-300 mb-6">
-                    They were missing 3-4 calls a day during the morning rush. Customers needing immediate leak repairs were hanging up and calling the next plumber on Google.<br /><br />Using instant text replies on missed calls changed that. Customers started texting back. Jobs that would've been lost got booked.<br /><br />They recovered 18 jobs in 30 days.<br /><br /><span class="text-xs text-slate-400">Based on tracked missed call data during the test period.</span>
-                  </p>
-                  <div class="grid grid-cols-2 gap-4">
-                    <div class="border-l-2 border-brand-orange pl-4">
-                      <div class="text-3xl font-extrabold text-brand-orange">+18</div>
-                      <div class="text-sm text-slate-400">Booked Jobs</div>
-                    </div>
-                    <div class="border-l-2 border-brand-orange pl-4">
-                      <div class="text-3xl font-extrabold text-brand-orange">4.9</div>
-                      <div class="text-sm text-slate-400">Star Rating</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="hidden md:flex justify-end">
-                  <div
-                    class="bg-slate-800 p-8 rounded-xl w-full max-w-sm border border-slate-700 shadow-lg"
-                  >
-                    <div class="space-y-6">
-                      <div>
-                        <div class="text-4xl font-extrabold text-green-400">35%</div>
-                        <div class="text-white font-medium">Fewer lost customers</div>
-                      </div>
-                      <div class="w-full h-px bg-slate-700"></div>
-                      <div>
-                        <div class="text-4xl font-extrabold text-green-400">+18</div>
-                        <div class="text-white font-medium">Booked jobs</div>
-                      </div>
-                      <div class="w-full h-px bg-slate-700"></div>
-                      <div>
-                        <div class="text-4xl font-extrabold text-green-400">4.9</div>
-                        <div class="text-white font-medium">Star rating</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-          </div>
-        </section>
-        <section class="py-16 bg-white border-y border-slate-100">
-          <div class="container mx-auto px-4">
-            <p class="text-center text-slate-600 font-medium mb-8">
-              Built for plumbers who need every call to count.
-            </p>
-            <div class="grid md:grid-cols-3 gap-8 mb-16">
-              <div
-                class="bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow"
-              >
-                <div class="flex gap-1 mb-4 text-orange-400">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-yellow-400 fill-current"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    ></path></svg
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-yellow-400 fill-current"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    ></path></svg
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-yellow-400 fill-current"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    ></path></svg
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-yellow-400 fill-current"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    ></path></svg
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-yellow-400 fill-current"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    ></path>
-                  </svg>
-                </div>
-                <p class="text-slate-700 mb-6 leading-relaxed">
-                  &quot;<!-- -->I&#x27;m usually under a sink when the phone rings, so we were
-                  missing a few calls every week. Now we’re actually getting some of those customers
-                  back instead of losing them.<!-- -->&quot;
-                </p>
-                <div class="flex items-center gap-3">
-                  <img
-                    src="https://media.licdn.com/dms/image/v2/D5603AQFEJhkTlEe9ng/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1709695345901?e=2147483647&v=beta&t=wyGg-n5t8Rx5cCE8tcdq_3uflI4ppqi9LT7HXf2sLqM"
-                    alt="Mike Stevens"
-                    class="h-10 w-10 rounded-full object-cover hover:scale-110 transition-transform duration-300 cursor-pointer"
-                  />
-                  <div>
-                    <div class="font-bold text-slate-900 text-sm">Mike Stevens</div>
-                    <div class="text-xs text-slate-500">
-                      Owner<!-- -->,
-                      <!-- -->Apex Plumbing Solutions • Austin, TX
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow"
-              >
-                <div class="flex gap-1 mb-4 text-orange-400">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-yellow-400 fill-current"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    ></path></svg
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-yellow-400 fill-current"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    ></path></svg
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-yellow-400 fill-current"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    ></path></svg
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-yellow-400 fill-current"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    ></path></svg
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-yellow-400 fill-current"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    ></path>
-                  </svg>
-                </div>
-                <p class="text-slate-700 mb-6 leading-relaxed">
-                  &quot;<!-- -->We used to lose emergency jobs because we couldn’t answer fast
-                  enough. Now those calls get a text right away and people actually reply.<!-- -->&quot;
-                </p>
-                <div class="flex items-center gap-3">
-                  <img
-                    src="https://lirp.cdn-website.com/835430b6/dms3rep/multi/opt/image-%2810%29-1280w.png"
-                    alt="Sarah Jenkins"
-                    class="h-10 w-10 rounded-full object-cover object-center hover:scale-110 transition-transform duration-300 cursor-pointer"
-                  />
-                  <div>
-                    <div class="font-bold text-slate-900 text-sm">Sarah Jenkins</div>
-                    <div class="text-xs text-slate-500">
-                      Dispatcher<!-- -->,
-                      <!-- -->Jenkins Family Plumbing • Columbus, OH
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow"
-              >
-                <div class="flex gap-1 mb-4 text-orange-400">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-yellow-400 fill-current"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    ></path></svg
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-yellow-400 fill-current"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    ></path></svg
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-yellow-400 fill-current"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    ></path></svg
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-yellow-400 fill-current"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    ></path></svg
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-yellow-400 fill-current"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                    ></path>
-                  </svg>
-                </div>
-                <p class="text-slate-700 mb-6 leading-relaxed">
-                  &quot;<!-- -->During busy weeks my phone doesn’t stop. This caught a bunch of
-                  calls we would’ve missed and filled in extra jobs.<!-- -->&quot;
-                </p>
-                <div class="flex items-center gap-3">
-                  <img
-                    src="https://images.squarespace-cdn.com/content/v1/6723d807bb79290e35dd6d96/9bcd6fa4-3f6c-4934-8e89-e5cbd9a466f7/J+Martin+HVAC+-+Yorba+Linda+HVAC%2C+Air+Conditioning%2C+Service%2C+Repair+-+Team+-+7.jpg"
-                    alt="David Ross"
-                    class="h-10 w-10 rounded-full object-cover hover:scale-110 transition-transform duration-300 cursor-pointer"
-                  />
-                  <div>
-                    <div class="font-bold text-slate-900 text-sm">David Ross</div>
-                    <div class="text-xs text-slate-500">
-                      Owner<!-- -->,
-                      <!-- -->Ross HVAC &amp; Plumbing • Denver, CO
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-        <section class="py-20 pb-0 bg-slate-50 w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
-          <div class="px-4 w-full">
-            <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-12">
-              <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                Every missed call is already costing you money.
-              </h2>
-              <p class="text-lg text-slate-600 max-w-3xl mx-auto">You already paid to get that call. Missing it means you lose the job to the next plumber.</p>
-            </div>
-            <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-8 md:p-12 mb-12">
-              <div class="grid md:grid-cols-2 gap-x-12 gap-y-6">
-                <div class="flex items-start gap-3">
-                  <div class="flex-shrink-0 mt-1">
-                    <svg
-                      class="w-5 h-5 text-red-500"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M6 18L18 6M6 6l12 12"
-                      ></path>
-                    </svg>
-                  </div>
-                  <p class="text-slate-700 font-medium">
-                    You're on a job. It rings. They call the next plumber.
-                  </p>
-                </div>
-                <div class="flex items-start gap-3">
-                  <div class="flex-shrink-0 mt-1">
-                    <svg
-                      class="w-5 h-5 text-red-500"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M6 18L18 6M6 6l12 12"
-                      ></path>
-                    </svg>
-                  </div>
-                  <p class="text-slate-700 font-medium">
-                    You see it later. The job is already gone.
-                  </p>
-                </div>
-              </div>
-              <div class="mt-10 pt-8 border-t border-slate-100 text-center">
-                <div class="bg-brand-blue/10 rounded-xl p-6 inline-block text-left">
-                  <p class="text-brand-blue font-bold text-xl mb-2">Check your phone.</p>
-                  <p class="text-slate-700 font-medium">
-                    How many missed calls are sitting there right now?
-                  </p>
-                </div>
-              </div>
-            </div>
-            </div>
-            </div>
-          </div>
-        </section>
-        <section id="how-it-works" class="pt-16 pb-20 bg-slate-900 text-white">
-          <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-              <h2 class="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
-              <p class="text-slate-400 max-w-2xl mx-auto">
-                Turn missed calls into conversations without lifting a finger.
-              </p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8 relative">
-              <div
-                class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-slate-800 -translate-y-1/2 z-0"
-              ></div>
-              <div class="relative z-10 flex flex-col items-center text-center">
-                <div
-                  class="w-16 h-16 rounded-full bg-brand-blue border-4 border-slate-900 flex items-center justify-center text-2xl font-bold shadow-lg shadow-brand-blue/20 mb-6"
-                >
-                  1
-                </div>
-                <h3 class="text-xl font-bold mb-2">You miss a call</h3>
-                <p class="text-slate-400 text-sm leading-relaxed max-w-[200px]">
-                  You&#x27;re busy working or driving. The phone rings and goes to voicemail.
-                </p>
-              </div>
-              <div class="relative z-10 flex flex-col items-center text-center">
-                <div
-                  class="w-16 h-16 rounded-full bg-brand-blue border-4 border-slate-900 flex items-center justify-center text-2xl font-bold shadow-lg shadow-brand-blue/20 mb-6"
-                >
-                  2
-                </div>
-                <h3 class="text-xl font-bold mb-2">A text goes out</h3>
-                <p class="text-slate-400 text-sm leading-relaxed max-w-[200px]">
-                  Before they call the next plumber, they instantly get a text asking how you can
-                  help.
-                </p>
-              </div>
-              <div class="relative z-10 flex flex-col items-center text-center">
-                <div
-                  class="w-16 h-16 rounded-full bg-brand-blue border-4 border-slate-900 flex items-center justify-center text-2xl font-bold shadow-lg shadow-brand-blue/20 mb-6"
-                >
-                  3
-                </div>
-                <h3 class="text-xl font-bold mb-2">The customer replies</h3>
-                <p class="text-slate-400 text-sm leading-relaxed max-w-[200px]">
-                  Most customers text back within a few minutes instead of calling someone else. You
-                  reply when you&#x27;re free and book the job.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section id="pricing" class="py-24 bg-slate-50">
-          <div class="container mx-auto px-4">
-            <div
-              class="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200"
-            >
-              <div class="grid md:grid-cols-2">
-                <div class="p-10 md:p-12">
-                  <h3 class="text-2xl font-bold text-slate-900 mb-6">
-                    Every missed call is a job someone else gets.
-                  </h3>
-                  <ul class="space-y-4 mb-8">
-                    <li class="flex items-start gap-3">
-                      <div class="text-green-500 mt-1">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="h-5 w-5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M5 13l4 4L19 7"
-                          ></path>
-                        </svg>
-                      </div>
-                      <span class="text-slate-700 font-medium"
-                        >Every missed call gets a text back instantly</span
-                      >
-                    </li>
-                    <li class="flex items-start gap-3">
-                      <div class="text-green-500 mt-1">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="h-5 w-5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M5 13l4 4L19 7"
-                          ></path>
-                        </svg>
-                      </div>
-                      <span class="text-slate-700 font-medium"
-                        >Customers text back while you&#x27;re still on the job</span
-                      >
-                    </li>
-                  </ul>
-                  <div
-                    class="bg-yellow-50 border border-yellow-200 p-4 rounded-xl text-sm text-yellow-800 font-medium"
-                  >
-                    <div class="mb-1">This is a safety net for missed calls.</div>
-                    <div>Every missed call we catch is a job you don’t lose.</div>
-                  </div>
-                </div>
-                <div
-                  class="bg-slate-50 p-10 md:p-12 border-t md:border-t-0 md:border-l border-slate-100 flex flex-col justify-center items-center text-center relative overflow-hidden"
-                >
-                  <div
-                    class="absolute top-6 right-0 bg-brand-orange text-white text-xs font-bold px-8 py-1 rotate-45 translate-x-8 shadow-sm"
-                  >
-                    POPULAR
-                  </div>
-                  <div class="mb-2 text-slate-500 font-medium uppercase tracking-wider">
-                    Simple Pricing
-                  </div>
-                  <div class="text-5xl font-extrabold text-slate-900 mb-2">
-                    $297<span class="text-lg text-slate-500 font-normal">/mo</span>
-                  </div>
-                  <div
-                    class="text-green-600 font-bold mb-8 bg-green-100 px-3 py-1 rounded-full text-sm"
-                  >
-                    See the results first. Then decide.
-                  </div>
-                  <button
-                    onclick="document.getElementById('lead-form').scrollIntoView({behavior: 'smooth'})"
-                    class="inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-brand-orange hover:bg-orange-600 text-white shadow-lg shadow-orange-500/30 focus:ring-orange-500 px-8 py-4 text-lg w-full mb-4"
-                  >
-                    Start 5-day proof
-                  </button>
-                  <p class="text-xs text-slate-500 font-medium mb-4">
-                    Takes about 2 minutes to set up.<br />Nothing changes on your end.
-                  </p>
-                  <p class="text-xs text-slate-400 mb-6">Try it for a few days. Then decide.</p>
-                  <div
-                    class="flex flex-wrap justify-center gap-3 text-xs text-slate-600 font-semibold mb-6"
-                  >
-                    <span class="flex items-center gap-1"
-                      ><div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                      No contracts</span
-                    ><span class="flex items-center gap-1"
-                      ><div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                      Cancel anytime</span
-                    ><span class="flex items-center gap-1"
-                      ><div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                      No hidden fees</span
-                    >
-                  </div>
-                  <p class="text-xs text-slate-400 leading-relaxed border-t border-slate-200 pt-4">
-                    You stay on the job. The customer doesn’t disappear.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section id="lead-form" class="py-20 bg-brand-blue">
-          <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-              <div class="text-white">
-                <h2 class="text-3xl md:text-4xl font-bold mb-6">
-                  See the missed calls for yourself.
-                </h2>
-                <div class="text-blue-100 text-lg mb-8 space-y-4">
-                  <p>Nothing changes on your end.</p>
-                  <p>Run the test and see how many calls you're missing.</p>
-                  <p>You'll see how many calls you're missing — and how many you could've kept.</p>
-                </div>
-              </div>
-              <form
-                id="leadForm"
-                action="https://api.web3forms.com/submit"
-                method="POST"
-                class="bg-white rounded-2xl p-6 md:p-8 shadow-2xl"
-              >
-                <input
-                  type="hidden"
-                  name="access_key"
-                  value="b4d25fdb-c0ca-4eed-8d37-a47d7cb42658"
-                />
-                <input type="hidden" name="subject" value="New Missed Call Lead" />
-                <input type="hidden" name="from_name" value="ElevateX Website" />
-                <input type="checkbox" name="botcheck" style="display: none" />
-                <div class="mb-2">
-                  <h3 class="text-xl font-bold text-slate-900 mb-6">Enter your business phone</h3>
-                  <div class="mb-8">
-                    <input
-                      required=""
-                      type="tel"
-                      class="w-full px-4 py-4 rounded-lg border-2 border-slate-300 focus:ring-2 focus:ring-brand-blue focus:border-brand-blue focus:shadow-lg outline-none text-lg font-medium"
-                      placeholder="(555) 123-4567"
-                      name="phone"
-                      value=""
-                    />
-                  </div>
-                  <div class="mb-8">
-                    <input
-                      type="email"
-                      class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none"
-                      placeholder="Email (optional)"
-                      name="email"
-                      value=""
-                    />
-                  </div>
-                  <div class="mb-10">
-                    <input
-                      type="text"
-                      class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none"
-                      placeholder="Full name (optional)"
-                      name="fullName"
-                      value=""
-                    />
-                  </div>
-                </div>
-                <input
-                  type="text"
-                  style="display: none"
-                  tabindex="-1"
-                  autocomplete="off"
-                  name="website_url_honeypot"
-                  value=""
-                />
-                <button
-                  class="inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-brand-orange hover:bg-orange-600 text-white shadow-lg shadow-orange-500/30 focus:ring-orange-500 px-8 py-4 text-lg w-full mt-6"
-                  type="submit"
-                >
-                  Check My Missed Calls
-                </button>
-              </form>
-            </div>
-          </div>
-        </section>
-        <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
-          <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-              <div class="col-span-1 md:col-span-2">
-                <div class="text-white font-bold text-2xl mb-4">ElevateX Marketing</div>
-                <p class="text-sm max-w-xs mb-4">
-                  Helping plumbers turn missed calls into booked jobs.
-                </p>
-                <div class="text-sm"><p>Email: info@elevatexmarketing.com</p></div>
-              </div>
-              <div>
-                <h4 class="text-white font-semibold mb-4">Quick Links</h4>
-                <ul class="space-y-2 text-sm">
-                  <li>
-                    <a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a>
-                  </li>
-                  <li><a href="#pricing" class="hover:text-white transition-colors">Pricing</a></li>
-                  <li>
-                    <a href="#lead-form" class="hover:text-white transition-colors">Start 5-day proof</a>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h4 class="text-white font-semibold mb-4">Legal</h4>
-                <ul class="space-y-2 text-sm">
-                  <li>
-                    <a href="privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a>
-                  </li>
-                  <li>
-                    <a href="terms-of-service.html" class="hover:text-white transition-colors">Terms of Service</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="border-t border-slate-800 pt-8 text-center text-xs">
-              ©
-              <!-- -->2026<!-- -->
-              ElevateX Marketing. All rights reserved.
-            </div>
-          </div>
-        </footer>
-        <!--/$-->
-      </main>
+    }
+    .step { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 1; }
+    .step-num {
+      width: 4rem; height: 4rem; border-radius: 50%;
+      background: var(--blue); border: 4px solid var(--slate-900);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; font-weight: 700; box-shadow: 0 4px 20px rgba(37,99,235,.2);
+      margin-bottom: 1.5rem;
+    }
+    .step h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: .5rem; }
+    .step p { font-size: .875rem; color: var(--slate-400); line-height: 1.6; max-width: 12.5rem; }
+
+    /* ════════════════════════════════════
+       PRICING
+    ════════════════════════════════════ */
+    .pricing { padding: 6rem 1rem; background: var(--slate-50); }
+    .pricing-card {
+      max-width: 56rem; margin: 0 auto;
+      background: var(--white); border-radius: 1.5rem;
+      box-shadow: 0 25px 50px rgba(0,0,0,.12); overflow: hidden;
+      border: 1px solid var(--slate-200);
+    }
+    .pricing-grid { display: grid; }
+    @media(min-width:768px) { .pricing-grid { grid-template-columns: 1fr 1fr; } }
+
+    .pricing-left { padding: 2.5rem 3rem; }
+    .pricing-left h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; }
+    .pricing-left ul { margin-bottom: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+    .pricing-left li { display: flex; gap: .75rem; align-items: flex-start; }
+    .pricing-left li svg { color: var(--green-500); flex-shrink: 0; margin-top: .125rem; }
+    .pricing-left li span { font-weight: 500; color: var(--slate-700); }
+
+    .pricing-note {
+      background: #fefce8; border: 1px solid #fef08a;
+      padding: 1rem; border-radius: .75rem;
+      font-size: .875rem; color: #854d0e; font-weight: 500;
+    }
+    .pricing-note div + div { margin-top: .25rem; }
+
+    .pricing-right {
+      background: var(--slate-50); padding: 2.5rem 3rem;
+      border-top: 1px solid var(--slate-100); display: flex;
+      flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    @media(min-width:768px) { .pricing-right { border-top: none; border-left: 1px solid var(--slate-100); } }
+
+    .popular-badge {
+      position: absolute; top: 1.5rem; right: 0;
+      background: var(--orange); color: #fff;
+      font-size: .75rem; font-weight: 700; padding: .25rem 2rem;
+      transform: rotate(45deg) translateX(2rem); box-shadow: 0 1px 4px rgba(0,0,0,.15);
+    }
+
+    .pricing-label { font-size: .75rem; font-weight: 500; color: var(--slate-500); letter-spacing: .1em; text-transform: uppercase; margin-bottom: .5rem; }
+    .pricing-price { font-size: 3rem; font-weight: 900; margin-bottom: .5rem; }
+    .pricing-price span { font-size: 1.125rem; font-weight: 400; color: var(--slate-500); }
+    .pricing-pill {
+      background: #dcfce7; color: var(--green-600); font-weight: 700;
+      font-size: .875rem; border-radius: 9999px; padding: .25rem .75rem; margin-bottom: 2rem;
+    }
+    .pricing-right .btn { margin-bottom: 1rem; }
+    .pricing-meta { font-size: .75rem; color: var(--slate-500); font-weight: 500; margin-bottom: .5rem; }
+    .pricing-try { font-size: .75rem; color: var(--slate-400); margin-bottom: 1.5rem; }
+
+    .pricing-trust { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; font-size: .75rem; color: var(--slate-600); font-weight: 600; margin-bottom: 1.5rem; }
+    .trust-item { display: flex; align-items: center; gap: .25rem; }
+    .trust-dot { width: .375rem; height: .375rem; border-radius: 50%; background: var(--green-500); }
+    .pricing-foot { font-size: .75rem; color: var(--slate-400); border-top: 1px solid var(--slate-200); padding-top: 1rem; line-height: 1.6; }
+
+    /* ════════════════════════════════════
+       LEAD FORM
+    ════════════════════════════════════ */
+    .lead { padding: 5rem 1rem; background: var(--blue); }
+    .lead-grid { display: grid; gap: 3rem; align-items: center; max-width: 56rem; margin: 0 auto; }
+    @media(min-width:768px) { .lead-grid { grid-template-columns: 1fr 1fr; } }
+
+    .lead-copy h2 { font-size: clamp(1.75rem,4vw,2.25rem); font-weight: 700; color: var(--white); margin-bottom: 1.5rem; }
+    .lead-copy p { color: #bfdbfe; font-size: 1.125rem; margin-bottom: 1rem; line-height: 1.6; }
+
+    .lead-form-box { background: var(--white); border-radius: 1rem; padding: 1.5rem; box-shadow: 0 25px 50px rgba(0,0,0,.25); }
+    @media(min-width:768px) { .lead-form-box { padding: 2rem; } }
+    .lead-form-box h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem; }
+
+    .field { margin-bottom: 2rem; }
+    .field input {
+      width: 100%; border-radius: .5rem; outline: none;
+      font-size: 1rem; transition: border-color .2s, box-shadow .2s;
+    }
+    .field-main input { padding: 1rem; border: 2px solid var(--slate-300); font-size: 1.125rem; font-weight: 500; }
+    .field-main input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,.15); }
+    .field-secondary input { padding: .75rem 1rem; border: 1px solid var(--slate-300); }
+    .field-secondary input:focus { border-color: var(--blue); }
+
+    .success-box { text-align: center; padding: 2rem 0; }
+    .success-icon {
+      width: 4rem; height: 4rem; border-radius: 50%;
+      background: #dcfce7; color: var(--green-600);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    .success-box h3 { font-size: 1.875rem; font-weight: 700; margin-bottom: 1rem; }
+    .success-box p { color: var(--slate-600); margin-bottom: .75rem; }
+
+    /* ════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════ */
+    footer { background: var(--slate-900); color: var(--slate-400); padding: 3rem 1rem; border-top: 1px solid var(--slate-800); }
+    .footer-grid { display: grid; gap: 2rem; margin-bottom: 2rem; }
+    @media(min-width:768px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr; } }
+
+    .footer-brand .name { color: var(--white); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
+    .footer-brand p { font-size: .875rem; max-width: 18rem; margin-bottom: 1rem; }
+    .footer-brand .email { font-size: .875rem; }
+
+    footer h4 { color: var(--white); font-weight: 600; margin-bottom: 1rem; }
+    footer ul { display: flex; flex-direction: column; gap: .5rem; font-size: .875rem; }
+    footer ul a { transition: color .2s; }
+    footer ul a:hover { color: var(--white); }
+
+    .footer-bottom { border-top: 1px solid var(--slate-800); padding-top: 2rem; text-align: center; font-size: .75rem; }
+
+    /* ════════════════════════════════════
+       ICONS
+    ════════════════════════════════════ */
+    svg { display: inline-block; }
+  </style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="container" style="max-width:64rem; position:relative; z-index:1;">
+
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      <span>For Plumbers &amp; HVAC</span>
     </div>
-    <script>
-      // Quick way to handle smooth scrolling for anchor links
-      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute("href"));
-          if (target) {
-            target.scrollIntoView({
-              behavior: "smooth",
-            });
-          }
-        });
+
+    <h1>Stop losing calls to the <br><span class="blue">next plumber.</span></h1>
+
+    <p class="hero-sub">Your phone rings. You're on a job. You miss it. They call the next plumber.</p>
+    <p class="hero-sub2">We text them back instantly so they don't call someone else.</p>
+
+    <div class="hero-note">This isn't marketing. It just catches the calls you're already getting.</div>
+
+    <div class="hero-btns">
+      <button class="btn btn-orange" onclick="scrollTo('lead-form')">See How Many Calls You're Missing</button>
+      <button class="btn btn-outline" onclick="scrollTo('lead-form')">Start my 5-day proof</button>
+    </div>
+
+    <div class="hero-check">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+      <span>See the missed calls for yourself. Decide if it's worth it.</span>
+    </div>
+
+    <div class="built-for">
+      <h3>This Is Built For You If…</h3>
+      <p class="sub">Built for owner-operators and small crews who answer their own phone.</p>
+      <div class="built-for-item">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>You miss calls while working.</span>
+      </div>
+      <div class="built-for-item">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        <span>You see missed calls later when you're already on a job.</span>
+      </div>
+      <div class="built-for-item">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 12c0-3 2.5-5.5 5.5-5.5S23 9 23 12H12zm0 0c3 0 5.5 2.5 5.5 5.5S15 23 12 23V12zm0 0c0 3-2.5 5.5-5.5 5.5S1 15 1 12h11zm0 0c-3 0-5.5-2.5-5.5-5.5S9 1 12 1v11z"/></svg>
+        <span>You want to book jobs without playing phone tag.</span>
+      </div>
+    </div>
+
+  </div>
+  <div class="hero-glow">
+    <div class="glow-blue"></div>
+    <div class="glow-orange"></div>
+  </div>
+</section>
+
+<!-- ══ CASE STUDY ══ -->
+<section class="case-study">
+  <div class="container">
+    <div class="cs-inner">
+      <div class="cs-grid">
+        <div>
+          <div class="cs-badge">CASE STUDY</div>
+          <h3>How a local Dallas plumber added 18 booked jobs in 30 days.</h3>
+          <p>
+            They were missing 3–4 calls a day during the morning rush. Customers needing immediate leak repairs were hanging up and calling the next plumber on Google.<br><br>
+            Using instant text replies on missed calls changed that. Customers started texting back. Jobs that would've been lost got booked.<br><br>
+            They recovered 18 jobs in 30 days.<br><br>
+            <span class="fine">Based on tracked missed call data during the test period.</span>
+          </p>
+          <div class="cs-stats">
+            <div class="cs-stat"><div class="num">+18</div><div class="lbl">Booked Jobs</div></div>
+            <div class="cs-stat"><div class="num">4.9</div><div class="lbl">Star Rating</div></div>
+          </div>
+        </div>
+        <div class="cs-panel">
+          <div><div class="big">35%</div><div class="lbl">Fewer lost customers</div></div>
+          <hr>
+          <div><div class="big">+18</div><div class="lbl">Booked jobs</div></div>
+          <hr>
+          <div><div class="big">4.9</div><div class="lbl">Star rating</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section class="testimonials">
+  <div class="container">
+    <p class="section-label">Built for plumbers who need every call to count.</p>
+    <div class="testi-grid">
+
+      <div class="testi-card">
+        <div class="stars">
+          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+        <blockquote>"I'm usually under a sink when the phone rings, so we were missing a few calls every week. Now we're actually getting some of those customers back instead of losing them."</blockquote>
+        <div class="testi-author">
+          <img src="https://media.licdn.com/dms/image/v2/D5603AQFEJhkTlEe9ng/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1709695345901?e=2147483647&v=beta&t=wyGg-n5t8Rx5cCE8tcdq_3uflI4ppqi9LT7HXf2sLqM" alt="Mike Stevens">
+          <div>
+            <div class="testi-name">Mike Stevens</div>
+            <div class="testi-role">Owner, Apex Plumbing Solutions • Austin, TX</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="stars">
+          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+        <blockquote>"We used to lose emergency jobs because we couldn't answer fast enough. Now those calls get a text right away and people actually reply."</blockquote>
+        <div class="testi-author">
+          <img src="https://lirp.cdn-website.com/835430b6/dms3rep/multi/opt/image-%2810%29-1280w.png" alt="Sarah Jenkins">
+          <div>
+            <div class="testi-name">Sarah Jenkins</div>
+            <div class="testi-role">Dispatcher, Jenkins Family Plumbing • Columbus, OH</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="stars">
+          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+        <blockquote>"During busy weeks my phone doesn't stop. This caught a bunch of calls we would've missed and filled in extra jobs."</blockquote>
+        <div class="testi-author">
+          <img src="https://images.squarespace-cdn.com/content/v1/6723d807bb79290e35dd6d96/9bcd6fa4-3f6c-4934-8e89-e5cbd9a466f7/J+Martin+HVAC+-+Yorba+Linda+HVAC%2C+Air+Conditioning%2C+Service%2C+Repair+-+Team+-+7.jpg" alt="David Ross">
+          <div>
+            <div class="testi-name">David Ross</div>
+            <div class="testi-role">Owner, Ross HVAC &amp; Plumbing • Denver, CO</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROBLEM ══ -->
+<section class="problem">
+  <div class="container">
+    <h2>Every missed call is already costing you money.</h2>
+    <p class="problem-sub">You already paid to get that call. Missing it means you lose the job to the next plumber.</p>
+    <div class="problem-box">
+      <div class="problem-items">
+        <div class="problem-item">
+          <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+          <p>You're on a job. It rings. They call the next plumber.</p>
+        </div>
+        <div class="problem-item">
+          <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+          <p>You see it later. The job is already gone.</p>
+        </div>
+      </div>
+      <div class="problem-cta">
+        <div class="problem-cta-box">
+          <div class="headline">Check your phone.</div>
+          <p>How many missed calls are sitting there right now?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section id="how-it-works" class="how">
+  <div class="container">
+    <h2>How It Works</h2>
+    <p class="how-sub">Turn missed calls into conversations without lifting a finger.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>You miss a call</h3>
+        <p>You're busy working or driving. The phone rings and goes to voicemail.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>A text goes out</h3>
+        <p>Before they call the next plumber, they instantly get a text asking how you can help.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>The customer replies</h3>
+        <p>Most customers text back within a few minutes instead of calling someone else. You reply when you're free and book the job.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRICING ══ -->
+<section id="pricing" class="pricing">
+  <div class="container">
+    <div class="pricing-card">
+      <div class="pricing-grid">
+        <div class="pricing-left">
+          <h3>Every missed call is a job someone else gets.</h3>
+          <ul>
+            <li>
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              <span>Every missed call gets a text back instantly</span>
+            </li>
+            <li>
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              <span>Customers text back while you're still on the job</span>
+            </li>
+          </ul>
+          <div class="pricing-note">
+            <div>This is a safety net for missed calls.</div>
+            <div>Every missed call we catch is a job you don't lose.</div>
+          </div>
+        </div>
+        <div class="pricing-right">
+          <div class="popular-badge">POPULAR</div>
+          <div class="pricing-label">Simple Pricing</div>
+          <div class="pricing-price">$297<span>/mo</span></div>
+          <div class="pricing-pill">See the results first. Then decide.</div>
+          <button class="btn btn-orange" onclick="scrollTo('lead-form')">Start 5-day proof</button>
+          <p class="pricing-meta">Takes about 2 minutes to set up.<br>Nothing changes on your end.</p>
+          <p class="pricing-try">Try it for a few days. Then decide.</p>
+          <div class="pricing-trust">
+            <span class="trust-item"><span class="trust-dot"></span>No contracts</span>
+            <span class="trust-item"><span class="trust-dot"></span>Cancel anytime</span>
+            <span class="trust-item"><span class="trust-dot"></span>No hidden fees</span>
+          </div>
+          <p class="pricing-foot">You stay on the job. The customer doesn't disappear.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ LEAD FORM ══ -->
+<section id="lead-form" class="lead">
+  <div class="container">
+    <div class="lead-grid">
+      <div class="lead-copy">
+        <h2>See the missed calls for yourself.</h2>
+        <p>Nothing changes on your end.</p>
+        <p>Run the test and see how many calls you're missing.</p>
+        <p>You'll see how many calls you're missing — and how many you could've kept.</p>
+      </div>
+      <div class="lead-form-box">
+        <form id="leadForm" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="b4d25fdb-c0ca-4eed-8d37-a47d7cb42658">
+          <input type="hidden" name="subject" value="New Missed Call Lead">
+          <input type="hidden" name="from_name" value="ElevateX Website">
+          <input type="checkbox" name="botcheck" style="display:none">
+          <input type="text" name="website_url_honeypot" style="display:none" tabindex="-1" autocomplete="off">
+
+          <h3>Enter your business phone</h3>
+          <div class="field field-main">
+            <input required type="tel" name="phone" placeholder="(555) 123-4567">
+          </div>
+          <div class="field field-secondary">
+            <input type="email" name="email" placeholder="Email (optional)">
+          </div>
+          <div class="field field-secondary" style="margin-bottom:0">
+            <input type="text" name="fullName" placeholder="Full name (optional)">
+          </div>
+          <button type="submit" class="btn btn-orange" style="margin-top:1.5rem; width:100%">Check My Missed Calls</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="name">ElevateX Marketing</div>
+        <p>Helping plumbers turn missed calls into booked jobs.</p>
+        <div class="email">Email: info@elevatexmarketing.com</div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#lead-form">Start 5-day proof</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-of-service.html">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 ElevateX Marketing. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  function scrollTo(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  document.getElementById('leadForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('button[type="submit"]');
+    btn.textContent = 'Processing...';
+    btn.disabled = true;
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' }
       });
-
-      document.getElementById("leadForm").addEventListener("submit", async function (e) {
-        e.preventDefault();
-        const form = e.target;
-        const button = form.querySelector('button[type="submit"]');
-        button.innerText = "Processing...";
-        button.disabled = true;
-
-        try {
-          const formData = new FormData(form);
-          const response = await fetch(form.action, {
-            method: "POST",
-            body: formData,
-            headers: {
-              Accept: "application/json",
-            },
-          });
-          const result = await response.json();
-          if (result.success) {
-            // Show success state
-            form.innerHTML = `<div class="text-center py-8">
-                  <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                   <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                  </div>
-                  <h3 class="text-3xl font-bold text-slate-900 mb-4">We Are Checking Your Missed Calls</h3>
-                  <p class="text-slate-600 mb-4">We will show you where you lose jobs.</p>
-                  <p class="text-slate-600 font-medium mb-4">You will get your report within 24 hours.</p>
-                  <p class="text-slate-600">We will show you exactly what to fix and how we can do it for you.</p>
-                </div>`;
-          }
-        } catch (err) {
-          console.error(err);
-          button.innerText = "Get My Report";
-          button.disabled = false;
-        }
-      });
-
-      // Note: React hydrated events will not be active without React,
-      // so if the form uses a React state, it will just submit natively
-      // based on the form action and method added in previous steps.
-    </script>
-  </body>
+      const data = await res.json();
+      if (data.success) {
+        form.closest('.lead-form-box').innerHTML = `
+          <div class="success-box">
+            <div class="success-icon">
+              <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <h3>We Are Checking Your Missed Calls</h3>
+            <p>We will show you where you lose jobs.</p>
+            <p style="font-weight:600">You will get your report within 24 hours.</p>
+            <p>We will show you exactly what to fix and how we can do it for you.</p>
+          </div>`;
+      }
+    } catch(err) {
+      btn.textContent = 'Check My Missed Calls';
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
 </html>
