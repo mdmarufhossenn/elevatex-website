@@ -388,8 +388,8 @@
     <div class="hero-note">This isn't marketing. It just catches the calls you're already getting.</div>
 
     <div class="hero-btns">
-      <button class="btn btn-orange" onclick="scrollTo('lead-form')">See How Many Calls You're Missing</button>
-      <button class="btn btn-outline" onclick="scrollTo('lead-form')">Start my 5-day proof</button>
+      <button class="btn btn-orange" onclick="scrollToSection('lead-form')">See How Many Calls You're Missing</button>
+      <button class="btn btn-outline" onclick="scrollToSection('lead-form')">Start my 5-day proof</button>
     </div>
 
     <div class="hero-check">
@@ -594,7 +594,7 @@
           <div class="pricing-label">Simple Pricing</div>
           <div class="pricing-price">$297<span>/mo</span></div>
           <div class="pricing-pill">See the results first. Then decide.</div>
-          <button class="btn btn-orange" onclick="scrollTo('lead-form')">Start 5-day proof</button>
+          <button class="btn btn-orange" onclick="scrollToSection('lead-form')">Start 5-day proof</button>
           <p class="pricing-meta">Takes about 2 minutes to set up.<br>Nothing changes on your end.</p>
           <p class="pricing-try">Try it for a few days. Then decide.</p>
           <div class="pricing-trust">
@@ -674,7 +674,7 @@
 </footer>
 
 <script>
-  function scrollTo(id) {
+  function scrollToSection(id) {
     document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
   }
 
